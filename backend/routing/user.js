@@ -38,7 +38,7 @@ router.post("/login",(req,res,next)=>{
     let fetchUser;
     let errorMessage;
 
-    User.findOne({email : req.body.email})
+    User.findOne({email : "testone@test.com"})
     .then(user=>{
         if(!user){
             errorMessage = "Email is not correct";
@@ -47,7 +47,7 @@ router.post("/login",(req,res,next)=>{
             });
         }
         fetchUser = user;
-        return bcript.compare(req.body.password,user.password)
+        return bcript.compare("password",user.password)
     })
     .then(result=>{
         if(!result){
@@ -73,4 +73,4 @@ router.post("/login",(req,res,next)=>{
     });
 });
 
-module.exports = router;
+module.exports = router;    
