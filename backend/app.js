@@ -10,9 +10,9 @@ const path = require("path");
 // const profileRouter = require("./routing/profile");
 
 const app = express();
-//ODjmkgYPiqNhMgTk
+//moodle
 
-mongoose.connect("mongodb+srv://max:ODjmkgYPiqNhMgTk@testone-e21ea.mongodb.net/node-angular" ,{useNewUrlParser:true})
+mongoose.connect("mongodb+srv://moodle:moodle@moodle-bcmm9.mongodb.net/test?retryWrites=true&w=majority" ,{useNewUrlParser:true})
 .then(()=>{
     console.log("Database connected successfully");
 })
