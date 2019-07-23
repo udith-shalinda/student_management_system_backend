@@ -6,8 +6,8 @@ const multer = require("multer");
 const path = require("path");
 
 // const postRoutes = require("./routing/post");
-// const userRoutes = require("./routing/user");
-// const profileRouter = require("./routing/profile");
+
+const userRoutes = require('./routing/user');
 
 const app = express();
 //moodle
@@ -22,7 +22,7 @@ mongoose.connect("mongodb+srv://moodle:moodle@moodle-bcmm9.mongodb.net/test?retr
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:false}));
-app.use('/image',express.static(path.join("backend/image")));
+// app.use('/image',express.static(path.join("backend/image")));
 
 app.use((req,res,next)=>{
     res.setHeader("Access-control-Allow-Origin","*");
@@ -36,8 +36,8 @@ app.use((req,res,next)=>{
 
 
 // app.use("/home",postRoutes);
-// app.use("/user",userRoutes);
 // app.use("/profile",profileRouter)
 
+app.use("/user",userRoutes)
 
 module.exports = app;
