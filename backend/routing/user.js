@@ -11,7 +11,8 @@ router.post("/signup",(req,res,next)=>{
     .then(hash =>{
         const user = new User({
             email:req.body.email,
-            password:hash
+            password:hash,
+            type:req.body.type
         });
         user.save().then(result=>{
             if(result){
@@ -23,7 +24,7 @@ router.post("/signup",(req,res,next)=>{
                 ); 
                 res.status(201).json({
                     token:token,
-                    UserId:result._id
+                    userId:result._id
                 });
             }
         }).catch(err=>{
@@ -64,7 +65,8 @@ router.post("/login",(req,res,next)=>{
         ); 
         res.status(201).json({
             token :token,
-            userId:fetchUser._id
+            userId:fetchUser._id,
+            type:fetchUser.type
         });
     }).catch(err=>{
         return res.status(401).json({

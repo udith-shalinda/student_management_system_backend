@@ -1,21 +1,21 @@
 const express = require('express');
 const bcript = require('bcrypt');
-const Lecture = require('../modles/lecture');
-const jwt = require('jsonwebtoken');
+const UserDetails = require('../modles/userDetails');
+// const jwt = require('jsonwebtoken');
 
 
 const router = express.Router();
 
 router.post("/add",(req,res,next)=>{
-    const newLecture = new Lecture({
+    const newLecture = new UserDetails({
         name:req.body.name,
         mobile:req.body.mobile,
-        creader:req.body.creader    //may be we can use token id as well  
+        creater:req.body.creater    //may be we can use token id as well  
     });
     newLecture.save().then((result)=>{
         if(result){
            return res.status(201).json({
-                message:"lecture added successfully"
+                message:"userdetails added successfully"
             });
         }else{
             return res.status(401).json({
