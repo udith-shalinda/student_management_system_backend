@@ -23,9 +23,9 @@ router.post("/add",(req,res,next)=>{
             })
         }
     }).catch(err=>{
-        res.status(500).json({
+        return res.status(500).json({
             message:"User email is already taken"
-        })
+        });
     });
 });
 
