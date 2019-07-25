@@ -15,7 +15,8 @@ router.post("/add",(req,res,next)=>{
     newLecture.save().then((result)=>{
         if(result){
            return res.status(201).json({
-                message:"userdetails added successfully"
+                message:"userdetails added successfully",
+                userDetailsId:result._id
             });
         }else{
             return res.status(401).json({
