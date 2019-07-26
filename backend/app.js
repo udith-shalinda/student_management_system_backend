@@ -11,6 +11,7 @@ const userRoutes = require('./routing/user');
 const userDetailsRoute = require('./routing/userDetails');
 const addCourseRoute = require('./routing/course');
 const lectureCourseRoute = require('./routing/lectureCourse');
+const studentCourseRoute = require('./routing/studentCourse');
 
 const app = express();
 //moodle
@@ -45,5 +46,6 @@ app.use("/user",userRoutes)
 app.use("/userDetails",userDetailsRoute)
 app.use("/course",addCourseRoute)
 app.use("/lectureCourse",lectureCourseRoute)
+app.use("/studentCourse",studentCourseRoute)
 
 module.exports = app;

@@ -1,25 +1,25 @@
 const express = require('express');
-const bcript = require('bcrypt');
-const LectureCourse = require('../modles/lectureCourse');
+const StudentCourse = require('../modles/studentCourse');
 // const jwt = require('jsonwebtoken');
 
 
 const router = express.Router();
 
 router.post("/add",(req,res,next)=>{
-    const newLectureCourse = new LectureCourse({
-        lectureId:req.body.id,
+    const newStudentCourse = new StudentCourse({
+        studentId:req.body.id,
         courseId:req.body.courseId,
+        result:'-',
     });
-    newLectureCourse.save().then((result)=>{
+    newStudentCourse.save().then((result)=>{
         if(result){
            return res.status(201).json({
-                message:"new lectureCourse added successfully",
-                lectureCourseId:result._id
+                message:"new StudentCourse added successfully",
+                studentCourseId:result._id
             });
         }else{
             return res.status(401).json({
-                message:"lectureCourse added failed"
+                message:"StudentCourse added failed"
             })
         }
     }).catch(err=>{
