@@ -31,6 +31,17 @@ router.post("/add",(req,res,next)=>{
     });
 });
 
+router.get("/getAll",(req,res,next)=>{
+    Course.find().then(result=>{
+        if(result){
+            res.status(201).json({
+                message:"found courses",
+                courses:result
+            })
+        }
+    });
+});
+
 
 
 module.exports = router;  
