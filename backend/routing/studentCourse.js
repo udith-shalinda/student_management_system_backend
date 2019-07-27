@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.post("/add",(req,res,next)=>{
     const newStudentCourse = new StudentCourse({
-        studentId:req.body.id,
+        studentId:req.body.MyId,
         courseId:req.body.courseId,
         result:'-',
     });
@@ -27,6 +27,26 @@ router.post("/add",(req,res,next)=>{
             message:"error"
         });
     });
+});
+
+router.get("/get/:id",(req,res,next)=>{
+    const myCourses = StudentCourse.aggregate([
+        {
+            "$lookup": {
+                "from": "course",
+                "localField": "courseId",
+                "foreignField": "_id",
+                "as": "courseDetails"
+            },
+            // "$match":{
+
+            // }
+            
+        }
+    ]);
+    return res.status(201).json({
+        message:myCourses,
+    })
 });
 
 
