@@ -30,23 +30,40 @@ router.post("/add",(req,res,next)=>{
 });
 
 router.get("/get/:id",(req,res,next)=>{
-    const myCourses = StudentCourse.aggregate([
+    // const stId = req.params.id;
+    // console.log(stId);
+    StudentCourse.aggregate([
         {
             "$lookup": {
-                "from": "course",
+                "from": "courses",
                 "localField": "courseId",
                 "foreignField": "_id",
                 "as": "courseDetails"
             },
-            // "$match":{
-
-            // }
-            
         }
-    ]);
-    return res.status(201).json({
-        message:myCourses,
-    })
+        // ,{
+        //     "$match":{
+        //         "studentId": 5d38be046bc34552340e1920,
+        //     }
+        // }
+    ]).then(result=>{
+        if(result){
+            return res.status(201).json({
+                courses:result,
+                message:"result found"
+            });
+        }else{
+            return res.status(401).json({
+                message:"not found"
+            });
+        }
+    });
+    // StudentCourse.find()
+    // .then(result=>{
+    //     return res.status(201).json({
+    //         message:result,
+    //     });
+    // });
 });
 
 
