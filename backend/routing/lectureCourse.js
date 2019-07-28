@@ -1,6 +1,7 @@
 const express = require('express');
 const bcript = require('bcrypt');
 const LectureCourse = require('../modles/lectureCourse');
+var mongoose = require('mongoose');
 // const jwt = require('jsonwebtoken');
 
 
@@ -26,6 +27,37 @@ router.post("/add",(req,res,next)=>{
         return res.status(500).json({
             message:"error"
         });
+    });
+});
+
+router.get("/get/:id",(req,res,next)=>{
+    // const stId = req.params.id;
+    // console.log(stId);
+    LectureCourse.aggregate([
+        {
+            "$match":{
+                "lectureId": new mongoose.Types.ObjectId(req.params.id),
+            }
+        },
+        {
+            "$lookup": {
+                "from": "courses",
+                "localField": "courseId",
+                "foreignField": "_id",
+                "as": "courseDetails"
+            },
+        }
+    ]).then(result=>{
+        if(result){
+            return res.status(201).json({
+                courses:result,
+                message:"result found"
+            });
+        }else{
+            return res.status(401).json({
+                message:"not found"
+            });
+        }
     });
 });
 

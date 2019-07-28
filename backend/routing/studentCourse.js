@@ -34,6 +34,11 @@ router.get("/get/:id",(req,res,next)=>{
     // console.log(stId);
     StudentCourse.aggregate([
         {
+            "$match":{
+                "studentId": new mongoose.Types.ObjectId(req.params.id),
+            }
+        },
+        {
             "$lookup": {
                 "from": "courses",
                 "localField": "courseId",
@@ -41,11 +46,7 @@ router.get("/get/:id",(req,res,next)=>{
                 "as": "courseDetails"
             },
         }
-        // ,{
-        //     "$match":{
-        //         "studentId": 5d38be046bc34552340e1920,
-        //     }
-        // }
+        
     ]).then(result=>{
         if(result){
             return res.status(201).json({
