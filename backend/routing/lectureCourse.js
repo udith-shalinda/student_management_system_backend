@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.post("/add",(req,res,next)=>{
     const newLectureCourse = new LectureCourse({
-        lectureId:req.body.id,
+        lectureId:req.body.MyId,
         courseId:req.body.courseId,
     });
     newLectureCourse.save().then((result)=>{
