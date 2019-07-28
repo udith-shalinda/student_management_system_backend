@@ -7,6 +7,29 @@ var mongoose = require('mongoose');
 
 const router = express.Router();
 
+router.post("/check",(req,res,next)=>{
+    LectureCourse.aggregate([
+        {
+            "$match":{
+                "lectureId": new mongoose.Types.ObjectId(req.body.MyId),
+                "courseId" :new mongoose.Types.ObjectId(req.body.courseId),
+            }
+        }     
+    ]).then(result=>{
+        if(result){
+            return res.status(201).json({
+                courses:result,
+                message:"result found"
+            });
+        }else{
+            return res.status(401).json({
+                message:"not found"
+            });
+        }
+    });
+    
+});
+
 router.post("/add",(req,res,next)=>{
     const newLectureCourse = new LectureCourse({
         lectureId:req.body.MyId,
