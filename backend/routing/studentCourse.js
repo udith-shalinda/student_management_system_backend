@@ -100,8 +100,8 @@ router.get("/get/students/:courseId",(req,res,next)=>{
         },
         {
             "$lookup": {
-                "from": "courses",
-                "localField": "user",
+                "from": "userDetails",
+                "localField": "studentId",
                 "foreignField": "_id",
                 "as": "studentDetails"
             },
