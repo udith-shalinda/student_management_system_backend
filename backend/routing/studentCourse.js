@@ -91,5 +91,34 @@ router.get("/get/:id",(req,res,next)=>{
     // });
 });
 
+router.get("/get/students/:courseId",(req,res,next)=>{
+    StudentCourse.aggregate([
+        {
+            "$match":{
+                "courseId": new mongoose.Types.ObjectId(req.params.courseId),
+            }
+        },
+        {
+            "$lookup": {
+                "from": "courses",
+                "localField": "user",
+                "foreignField": "_id",
+                "as": "studentDetails"
+            },
+        }
+    ]).then(result=>{
+        if(result){
+            return res.status(201).json({
+                students:result,
+                message:"result found"
+            });
+        }else{
+            return res.status(401).json({
+                message:"not found"
+            });
+        }
+    });
+});
+
 
 module.exports = router;  
