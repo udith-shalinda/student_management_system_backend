@@ -94,14 +94,14 @@ router.get("/get/:id",(req,res,next)=>{
 router.post("/studentsInCourse",(req,res,next)=>{
     console.log(req.body.courseId);
     StudentCourse.aggregate([
-        // {
-        //     "$match":{
-        //         "courseId": new mongoose.Types.ObjectId(req.body.courseId),
-        //     }
-        // },
+        {
+            "$match":{
+                "courseId": new mongoose.Types.ObjectId(req.body.courseId),
+            }
+        },
         {
             "$lookup": {
-                "from": "userDetails",
+                "from": "userdetails",
                 "localField": "studentId",
                 "foreignField": "_id",
                 "as": "studentDetails"
