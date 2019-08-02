@@ -2,6 +2,8 @@ const express = require('express');
 const bcript = require('bcrypt');
 const User = require('../modles/user');
 const jwt = require('jsonwebtoken');
+// var mongoose = require('mongoose');
+
 
 
 const router = express.Router();
@@ -38,17 +40,33 @@ router.post("/signup",(req,res,next)=>{
 router.post("/login",(req,res,next)=>{
     let fetchUser;
     let errorMessage;
+    let userDetailsId;
 
-    User.findOne({email : req.body.email})
+    User.aggregate([
+        {
+            "$match":{
+                "email": req.body.email,
+            }
+        },
+        {
+            "$lookup": {
+                "from": "userdetails",
+                "localField": "_id",
+                "foreignField": "creater",
+                "as": "userDetails"
+            },
+        }
+    ])
     .then(user=>{
-        if(!user){
+        if(!user[0]){
             errorMessage = "Email is not correct";
             return res.status(401).json({
                 message : "Email is not correct"
             });
         }
-        fetchUser = user;
-        return bcript.compare(req.body.password,user.password)
+        fetchUser = user[0];
+        userDetailsId = user[0]['userDetails'][0]['creater'];
+        return bcript.compare(req.body.password,user[0].password)
     })
     .then(result=>{
         if(!result){
@@ -66,7 +84,8 @@ router.post("/login",(req,res,next)=>{
         res.status(201).json({
             token :token,
             userId:fetchUser._id,
-            type:fetchUser.type
+            type:fetchUser.type,
+            userDetailsId:userDetailsId
         });
     }).catch(err=>{
         return res.status(401).json({
