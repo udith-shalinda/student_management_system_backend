@@ -65,7 +65,7 @@ router.post("/login",(req,res,next)=>{
             });
         }
         fetchUser = user[0];
-        userDetailsId = user[0]['userDetails'][0]['creater'];
+        userDetailsId = user[0]['userDetails'][0]['_id'];
         return bcript.compare(req.body.password,user[0].password)
     })
     .then(result=>{
