@@ -92,7 +92,6 @@ router.get("/get/:id",(req,res,next)=>{
 });
 
 router.post("/studentsInCourse",(req,res,next)=>{
-    console.log(req.body.courseId);
     StudentCourse.aggregate([
         {
             "$match":{
@@ -109,7 +108,6 @@ router.post("/studentsInCourse",(req,res,next)=>{
         }
     ]).then(result=>{
         if(result){
-            console.log(result);
             return res.status(201).json({
                 students:result,
                 message:"result found"
