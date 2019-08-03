@@ -125,7 +125,6 @@ router.post("/addResult",(req,res,next)=>{
         {"_id" : req.body.studentCourseId},
         {$set : { "result" : req.body.Result} }
     ).then(result=>{
-        console.log(result);
         if(result.nModified > 0){
             res.status(201).json({massage:'Updated successfully'});
         }else{

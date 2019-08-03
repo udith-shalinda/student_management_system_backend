@@ -59,9 +59,9 @@ router.post("/login",(req,res,next)=>{
     ])
     .then(user=>{
         if(!user[0]){
-            errorMessage = "Email is not correct";
+            errorMessage = "Email";
             return res.status(401).json({
-                message : "Email is not correct"
+                message : "Email"
             });
         }
         fetchUser = user[0];
@@ -70,9 +70,9 @@ router.post("/login",(req,res,next)=>{
     })
     .then(result=>{
         if(!result){
-            errorMessage = "Password is incorrect";
+            errorMessage = "Password";
             return res.status(401).json({
-                message : "Password is incorrect"
+                message : "Password"
             });
         }
         const token = jwt.sign(
