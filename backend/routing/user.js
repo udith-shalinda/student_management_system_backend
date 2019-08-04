@@ -26,7 +26,7 @@ router.post("/signup",(req,res,next)=>{
                 ); 
                 res.status(201).json({
                     token:token,
-                    userId:result._id
+                    userId:result._id,
                 });
             }
         }).catch(err=>{
