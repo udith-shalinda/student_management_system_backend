@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const multer = require("multer");
 const path = require("path");
 
+
 // const postRoutes = require("./routing/post");
 
 const userRoutes = require('./routing/user');
@@ -36,7 +37,7 @@ app.use((req,res,next)=>{
 });
 
 
-
+// app.use(bodyParser.urlencoded({limit: "50mb", extended: true, parameterLimit:50000}));
 
 
 // app.use("/home",postRoutes);

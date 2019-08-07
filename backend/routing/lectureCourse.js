@@ -85,4 +85,43 @@ router.get("/get/:id",(req,res,next)=>{
 });
 
 
+router.post("/update/:id",(req,res,next)=>{
+    // const stId = req.params.id;
+    // console.log(req.body.file);
+    var realFile = Buffer.from(req.body.file,"base64");
+
+    return res.status(201).json({
+        message:"hellof there"
+    });
+
+
+    // LectureCourse.aggregate([
+    //     {
+    //         "$match":{
+    //             "lectureId": new mongoose.Types.ObjectId(req.params.id),
+    //         }
+    //     },
+    //     {
+    //         "$lookup": {
+    //             "from": "courses",
+    //             "localField": "courseId",
+    //             "foreignField": "_id",
+    //             "as": "courseDetails"
+    //         },
+    //     }
+    // ]).then(result=>{
+    //     if(result){
+    //         return res.status(201).json({
+    //             courses:result,
+    //             message:"result found"
+    //         });
+    //     }else{
+    //         return res.status(401).json({
+    //             message:"not found"
+    //         });
+    //     }
+    // });
+});
+
+
 module.exports = router;  
